@@ -14,9 +14,15 @@ try {
   const listOfFiles = Array.isArray(files) ? files : [files];
 
   switch (command) {
-    case "c": {
+    case "z": {
       tar
         .c({ cwd, gzip: true, sync: true }, listOfFiles)
+        .pipe(fs.createWriteStream(outPath));
+      break;
+    }
+    case "c": {
+      tar
+        .c({ cwd, gzip: false, sync: true }, listOfFiles)
         .pipe(fs.createWriteStream(outPath));
       break;
     }
