@@ -15,15 +15,29 @@ jobs:
         uses: ./ # Uses an action in the root directory
         id: compress
         with:
-          command: c
+          command: z
           cwd: ./test
           files: |
             ./toCompress
           outPath: yolo.tar.gz
           # Use the output from the `compress` step
+      - name: Get the output (targz)
+        run: echo "The output was ${{ steps.compress.outputs.done }} with ${{ steps.compress.outputs.tarName }}"
+      - name: Compress action step
+        uses: ./ # Uses an action in the root directory
+        id: justTar
+        with:
+          command: c
+          cwd: ./test
+          files: |
+            ./toCompress
+          outPath: yolo.tar
+      - name: Get the output (tar)
+        run: echo "The output was ${{ steps.justTar.outputs.done }} with ${{ steps.justTar.outputs.tarName }}"
+          # Use the output from the `compress` step
       - name: Get the output
         run: echo "The output was ${{ steps.compress.outputs.done }}"
       - uses: actions/upload-artifact@v1
         with:
-          name: yolo.tar.gz
-          path: yolo.tar.gz
+          name: yolo.tar
+          path: yolo.tar*

@@ -30,7 +30,9 @@ try {
       throw new Error(`Unsupported command: ${command}`);
   }
 
+  core.debug("Built tar file " + outPath)
   core.setOutput("done", true);
+  core.setOutput("tarName", outPath);
 } catch (error) {
   core.setFailed(error.message);
 }
