@@ -13,6 +13,7 @@ try {
 
   const listOfFiles = Array.isArray(files) ? files : [files];
 
+  core.debug("Built tar file with command" + command)
   switch (command) {
     case "z": {
       tar
