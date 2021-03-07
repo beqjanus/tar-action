@@ -1,7 +1,4 @@
 on:
-  pull_request:
-    branches:
-      - master
   push:
 jobs:
   build:
@@ -12,18 +9,6 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@master
-      - name: Compress action step
-        uses: ./ # Uses an action in the root directory
-        id: compress
-        with:
-          command: z
-          cwd: ./test
-          files: |
-            ./toCompress
-          outPath: yolo.tar.gz
-          # Use the output from the `compress` step
-      - name: Get the output (targz)
-        run: echo "The output was ${{ steps.compress.outputs.done }} with ${{ steps.compress.outputs.tarName }}"
       - name: Compress action step
         uses: ./ # Uses an action in the root directory
         id: justTar
